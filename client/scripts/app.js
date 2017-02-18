@@ -5,7 +5,9 @@
 
 var app = {
   server: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
-  init: function() {},
+  init: function() {
+    
+  },
 
   send: function(message) {
     //send request to the server
@@ -30,8 +32,6 @@ var app = {
     $.ajax({
       url: 'http://parse.sfm8.hackreactor.com/chatterbox/classes/messages',
       type: 'GET',
-      data: message,
-      contentType: 'application/json',
       success: function (data) {
         console.log('chatterbox: Messages retrieved');
       },
@@ -46,11 +46,7 @@ var app = {
   },
 
   renderMessage: function(message) {
-    // var $username = '<div class="username">' + message.username + '</div>';
-    // var $userMessage = '<div class="userMessage">' + message.text + '</div>';
-    // $('#chats').append($username + ': ' + $userMessage);
     $('#chats').append('<div class="username">' + message.username + ': ' + message.text + '</div>');
-    $('.username').append('<input type="button"></input>');
   },
 
   renderRoom: function(roomName) {
@@ -58,14 +54,40 @@ var app = {
   },
   
   handleUsernameClick: function() {
-  //   // $('.username').click(function() {
-  //   //   alert();
-  //   // });
-  }
+    $('.username').addClass('friends');
+  },
+  
+  textToObj: function(text) {
+    var obj = {};
+    obj.username = '';
+    obj.text = text;
+    obj.roomname = '';
+    return obj;
+  },  
+
+  handleSubmit: function() {
+    // send message to server
+    var userTextInput = $('.messageBox').value;
+    var message = this.textToObj(userTextInput);
+    this.send(message);
+  },
+
 };
 
 
 
+
+$(document).ready(function() {
+  $('body').on('click', '.username', function() {
+    app.handleUsernameClick();
+  });
+
+  $('body').on('submit', '.submit', function() {
+    app.handleSubmit();
+  });
+
+
+});
 
 
 // var message = {
