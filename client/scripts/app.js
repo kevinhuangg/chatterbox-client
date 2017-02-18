@@ -40,11 +40,30 @@ var app = {
       }
     });
   },
-  clearMessages: function(chatroom) {
-    $('')
-  }
 
+  clearMessages: function(chatroom) {
+    $('#chats').empty();
+  },
+
+  renderMessage: function(message) {
+    // var $username = '<div class="username">' + message.username + '</div>';
+    // var $userMessage = '<div class="userMessage">' + message.text + '</div>';
+    // $('#chats').append($username + ': ' + $userMessage);
+    $('#chats').append('<div class="username">' + message.username + ': ' + message.text + '</div>');
+    $('.username').append('<input type="button"></input>');
+  },
+
+  renderRoom: function(roomName) {
+    $('#roomSelect').append('<div id=' + roomName + '></div>');
+  },
+  
+  handleUsernameClick: function() {
+  //   // $('.username').click(function() {
+  //   //   alert();
+  //   // });
+  }
 };
+
 
 
 
